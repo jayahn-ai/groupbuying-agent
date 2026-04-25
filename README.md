@@ -34,18 +34,24 @@
   ---                                                                                                                                             
                                                             
   ## 아키텍처                                                                                                                                     
+                                                                                                                                                  
+  **요청 흐름**                                                                                                                                   
+                                                                                                                                                  
+  HTML 클라이언트                                                                                                                                 
+    → POST /webhook/influencer-query                        
+    → Webhook Trigger                                                                                                                             
+    → Intent 분류 (Gemini)
+    → Switch (5개 분기)                                                                                                                           
                                                             
-  [HTML 클라이언트]
-        │ POST /webhook/influencer-query                                                                                                          
-        ▼
-  [Webhook Trigger] → [Intent 분류: Gemini] → [Switch]                                                                                            
-                                                   │                                                                                              
-                ┌──────────────┬──────────────┬────┴─────────────┬──────────────┐
-                ▼              ▼              ▼                  ▼              ▼                                                                 
-          engagement     simulation      settlement    settlement_confirm      rag
-          (Sheets +      (Sheets +       (Sheets +       (Sheets +          (Postgres +                                                           
-           Gemini)        Gemini)         Gemini)          Gmail)          AI Agent +                                                             
-                                                                         Vector Store)                                                            
+  **분기별 파이프라인**                                                                                                                           
+                                                                                                                                                  
+  | 분기 | 파이프라인 |
+  |------|-----------|                                                                                                                            
+  | `engagement` | Google Sheets → Gemini → 응답 |          
+  | `simulation` | Google Sheets → 수익 계산 → Gemini → 응답 |                                                                                    
+  | `settlement` | Google Sheets → 정산 계산 → Gemini → 응답 |                                                                                    
+  | `settlement_confirm` | Google Sheets → Gmail 발송 → 응답 |                                                                                    
+  | `rag` | PostgreSQL 관계 검색 → AI Agent (Gemini + Vector Store) → 응답 |                                                          
                                                                                                                                                   
   ---                                                                                                                                             
                                                                                                                                                   
