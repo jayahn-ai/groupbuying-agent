@@ -12,7 +12,7 @@ Project: 이커머스 공동구매 에이전트 (채널코퍼레이션)
 | 항목 | 내용 |
 |---|---|
 | 선택 이유 | 채널톡의 ALF 구현 방식이 사용자 최적화 기반 워크플로우 구축이기에 이와 유사하게 시각적 워크플로우 구축 내용을 보여줄 수 있는 n8n을 선택. 에이전트 구축에 필요한 내장 기능들이 충분히 갖춰져 있음 (Google Sheets, Gmail, Supabase 등). |
-| Self-hosted 선택 이유 | n8n Cloud 대비 월 비용 절감 (~$50/월 → ~$10/월 VPS). 민감한 정산 데이터·API 키가 외부 SaaS로 전송되지 않음. |
+| Self-hosted 선택 이유 | n8n Cloud 대비 월 비용 절감 (~$24/월 → ~$10/월 VPS). 민감한 정산 데이터·API 키가 외부 SaaS로 전송되지 않음. |
 | 배포 방식 | Docker Compose + Github Pages |
 
 ---
